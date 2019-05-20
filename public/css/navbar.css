@@ -1,0 +1,29 @@
+.navbar {
+    padding-left: 10px;
+    margin-right: 10px;
+    background-color: #00b89c;
+}
+
+.navbar .mainMenu {
+    color: black;
+    /* Change Font Family */
+    /* Change Text Color */
+}
+
+.navbar .mainMenu:hover {
+    color: #00b89c;
+}
+
+
+#rightMenu {
+    color: black;
+    /* Change Text Color */
+}
+
+#rightMenu:hover {
+    color: #00b89c;
+}
+
+#rightMenu:active {
+    color: #00b89c;
+}

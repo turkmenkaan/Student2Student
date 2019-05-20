@@ -1,0 +1,15 @@
+table {
+    margin-top: 40px;
+}
+
+td {
+    background-color: #00B89C;
+}
+
+td:hover {
+    background-color: lime;
+}
+
+td.active {
+    background-color: orangered;
+}

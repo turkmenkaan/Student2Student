@@ -1,0 +1,37 @@
+html, body, #app, .content, #leftMenu {
+    height: 100%;
+}
+
+
+aside {
+    background-color: #263444;
+    height: 100%;
+}
+
+.menu li {
+    color: #B7C0CD;
+    list-style: none;
+}
+
+.menu li svg {
+    margin-right: 8px;
+}
+
+.menu li a {
+    margin-top: 10%;
+    font-size: 16px;
+    color: #B7C0CD;
+}
+
+.menu li a:active {
+    color: #263444;
+}
+
+.menu li a:hover {
+    background-color: #263444;
+    color: #B7C0CD;
+}
+
+#users-table td {
+    font-size: 14px;
+}
