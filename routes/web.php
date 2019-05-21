@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/times', 'TimeslotController@store');
     Route::delete('/times', 'TimeslotController@destroy');
 
+    Route::get('/teacher/{id}', 'TeacherController@show');
+
     Route::get('/courseList', 'CourseController@list');
     Route::post('/reserve', 'ReservationController@store');
     /* END OF API ENDPOINTS */

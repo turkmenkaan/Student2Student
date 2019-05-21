@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <timetable teacher="{{ $user->id }}" mode="profile" :selected-date="selectedDate" student="{{ auth()->user()->id }}" id="timetable"></timetable>
+                    <timetable teacher-id="{{ $user->id }}" mode="profile" :selected-date="selectedDate" student="{{ auth()->user()->id }}" id="timetable"></timetable>
                     <p class="help" style="text-align: center">İstediğiniz tarihi seçerek hocanızın o tarihteki boş saatlerini görebilir, yeşil renkte gösterilen
                      boş saatlerin üstüne tıklayarak rezervasyon yapabilirsiniz.</p>
                 </div>

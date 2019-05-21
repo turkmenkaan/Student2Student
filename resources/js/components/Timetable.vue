@@ -1,6 +1,6 @@
 <template>
     <div class="columns">
-        <div class="column is-10 is-offset-1">
+        <div class="column">
             <!--
                 Render times within a table with 4 rows and 8 columns
                 Each data table represents a time once in 30 min
@@ -38,15 +38,16 @@
                     </header>
                     <section class="modal-card-body">
                         <strong>Ders:</strong>
-                        <div class="select">
+                        <div class="select" v-if="isProfileMode">
                             <select name="date" v-model="selectedCourse">
                                 <option v-for="course in courses" :value="course">{{ course }}</option>
                             </select>
                         </div>
+                        <span v-if="isCoursesMode">{{ course }}</span>
                         <br>
                         <strong>Ders Saati: </strong>{{ courseTime.split(':').slice(0,2).join(':') }}
                         <br>
-                        <strong>Dersi Veren: </strong>{{ teacher }}
+                        <strong>Dersi Veren: </strong>{{ teacherName }}
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-success" @click="reserveTime">Rezervasyonu Yap</button>
@@ -63,7 +64,7 @@
 <script>
     export default {
         name: "timetable",
-        props: ['mode', 'teacher', 'selectedDate', 'student'],
+        props: ['mode', 'teacherId', 'teacherName', 'selectedDate', 'student', 'course'],
         data() {
             return {
                 options: ['morning', 'afternoon', 'evening', 'night'],
@@ -81,6 +82,8 @@
                 courseTime: '',
                 courses: [],
                 selectedCourse: '',
+                isCoursesMode: false,
+                isProfileMode: false,
             }
         },
 
@@ -103,7 +106,7 @@
         watch: {
             selectedDate: function () {
                 let self = this;
-                axios.get('/times/' + self.teacher + '/' + self.selectedDate)
+                axios.get('/times/' + self.teacherId + '/' + self.selectedDate)
                     .then(function(response) {
                     Object.keys(self.available).forEach(function(data) {
                        self.available[data] = 0;
@@ -123,6 +126,14 @@
                 if (this.available[time]) {
                     this.showReservePanel = true;
                     this.courseTime = time;
+                    this.isProfileMode = true;
+                }
+            },
+            showCourseReservationPanel: function (time) {
+                if (this.available[time]) {
+                    this.showReservePanel = true;
+                    this.courseTime = time;
+                    this.isCoursesMode = true;
                 }
             },
             modeChooser: function (time) {
@@ -130,13 +141,15 @@
                     this.showPanel(time);
                 } else if (this.mode == "dashboard") {
                     this.availableTime(time);
+                } else if (this.mode == "courses") {
+                    this.showCourseReservationPanel(time);
                 }
             },
             reserveTime: function () {
                 console.log('Reserved timeslot: ' + this.courseTime);
                 axios.post('/reserve', {
                     student: this.student,
-                    teacher: this.teacher,
+                    teacher: this.teacherId,
                     course: this.selectedCourse,
                     hour: this.courseTime,
                     date: this.selectedDate,
@@ -156,7 +169,7 @@
                         data: {
                             hour: time,
                             date: this.selectedDate,
-                            teacher_id: this.teacher
+                            teacher_id: this.teacherId
                         }
                     }).then(function (response) {
                         console.log(response.data);
@@ -167,7 +180,7 @@
                 } else {
                     // If the timeslot does not exist already, create it
                     axios.post('/times', {
-                        teacher_id: this.teacher,
+                        teacher_id: this.teacherId,
                         date: this.selectedDate,
                         hour: time,
                     }).then (function (response) {
@@ -177,7 +190,7 @@
                     });
                     this.available[time] = 1;
                 }
-            }
+            },
 
         },
 
@@ -186,7 +199,7 @@
             axios.get('/courseList')
                 .then(function (response) {
                     response.data.forEach(function (data) {
-                        if (data.teacher_id == self.teacher) {
+                        if (data.teacher_id == self.teacherId) {
                             self.courses.push(data.name);
                         }
                     });

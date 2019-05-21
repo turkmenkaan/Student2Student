@@ -141,7 +141,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id)->name;
     }
 
     /**

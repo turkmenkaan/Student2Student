@@ -14409,7 +14409,12 @@ var app = new Vue({
         showStudentForm: false,
         showRequestLessonPanel: false,
         showReservationPanel: false,
-        selectedDate: ''
+        selectedDate: '',
+        selectedTeacher: {
+            id: '',
+            name: ''
+        },
+        selectedCourse: ''
     },
     methods: {
         changeCommentsPanelStatus: function changeCommentsPanelStatus() {
@@ -14420,6 +14425,12 @@ var app = new Vue({
         },
         choseDay: function choseDay(day) {
             this.chosenDay = day;
+        },
+        showCoursePanel: function showCoursePanel(teacherId, teacherName, course) {
+            this.showReservationPanel = true;
+            this.selectedTeacher.id = teacherId;
+            this.selectedTeacher.name = teacherName;
+            this.selectedCourse = course;
         }
     },
     computed: {}
@@ -49154,7 +49165,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49165,7 +49176,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -49217,24 +49227,20 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "modal-card-body" }),
+      _c("section", { staticClass: "modal-card-body" }, [_vm._t("default")], 2),
       _vm._v(" "),
       _c("footer", { staticClass: "modal-card-foot" }, [
-        _c("button", { staticClass: "button is-success" }, [
-          _vm._v("Save changes")
-        ]),
-        _vm._v(" "),
         _c(
           "button",
           {
-            staticClass: "button",
+            staticClass: "button is-success",
             on: {
               click: function($event) {
                 _vm.$emit("close")
               }
             }
           },
-          [_vm._v("Cancel")]
+          [_vm._v("Tamam")]
         )
       ])
     ])
@@ -49409,10 +49415,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "timetable",
-    props: ['mode', 'teacher', 'selectedDate', 'student'],
+    props: ['mode', 'teacherId', 'teacherName', 'selectedDate', 'student', 'course'],
     data: function data() {
         return {
             options: ['morning', 'afternoon', 'evening', 'night'],
@@ -49426,7 +49433,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showErrorMessage: false,
             courseTime: '',
             courses: [],
-            selectedCourse: ''
+            selectedCourse: '',
+            isCoursesMode: false,
+            isProfileMode: false
         };
     },
 
@@ -49450,7 +49459,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         selectedDate: function selectedDate() {
             var self = this;
-            axios.get('/times/' + self.teacher + '/' + self.selectedDate).then(function (response) {
+            axios.get('/times/' + self.teacherId + '/' + self.selectedDate).then(function (response) {
                 Object.keys(self.available).forEach(function (data) {
                     self.available[data] = 0;
                 });
@@ -49469,6 +49478,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.available[time]) {
                 this.showReservePanel = true;
                 this.courseTime = time;
+                this.isProfileMode = true;
+            }
+        },
+        showCourseReservationPanel: function showCourseReservationPanel(time) {
+            if (this.available[time]) {
+                this.showReservePanel = true;
+                this.courseTime = time;
+                this.isCoursesMode = true;
             }
         },
         modeChooser: function modeChooser(time) {
@@ -49476,13 +49493,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.showPanel(time);
             } else if (this.mode == "dashboard") {
                 this.availableTime(time);
+            } else if (this.mode == "courses") {
+                this.showCourseReservationPanel(time);
             }
         },
         reserveTime: function reserveTime() {
             console.log('Reserved timeslot: ' + this.courseTime);
             axios.post('/reserve', {
                 student: this.student,
-                teacher: this.teacher,
+                teacher: this.teacherId,
                 course: this.selectedCourse,
                 hour: this.courseTime,
                 date: this.selectedDate
@@ -49502,7 +49521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     data: {
                         hour: time,
                         date: this.selectedDate,
-                        teacher_id: this.teacher
+                        teacher_id: this.teacherId
                     }
                 }).then(function (response) {
                     console.log(response.data);
@@ -49513,7 +49532,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 // If the timeslot does not exist already, create it
                 axios.post('/times', {
-                    teacher_id: this.teacher,
+                    teacher_id: this.teacherId,
                     date: this.selectedDate,
                     hour: time
                 }).then(function (response) {
@@ -49531,7 +49550,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var self = this;
         axios.get('/courseList').then(function (response) {
             response.data.forEach(function (data) {
-                if (data.teacher_id == self.teacher) {
+                if (data.teacher_id == self.teacherId) {
                     self.courses.push(data.name);
                 }
             });
@@ -49551,7 +49570,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "columns" }, [
-    _c("div", { staticClass: "column is-10 is-offset-1" }, [
+    _c("div", { staticClass: "column" }, [
       _c("table", { staticClass: "table is-bordered is-hoverable" }, [
         _c(
           "tr",
@@ -49710,42 +49729,48 @@ var render = function() {
             _c("section", { staticClass: "modal-card-body" }, [
               _c("strong", [_vm._v("Ders:")]),
               _vm._v(" "),
-              _c("div", { staticClass: "select" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
+              _vm.isProfileMode
+                ? _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedCourse,
-                        expression: "selectedCourse"
-                      }
-                    ],
-                    attrs: { name: "date" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedCourse = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  _vm._l(_vm.courses, function(course) {
-                    return _c("option", { domProps: { value: course } }, [
-                      _vm._v(_vm._s(course))
-                    ])
-                  })
-                )
-              ]),
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedCourse,
+                            expression: "selectedCourse"
+                          }
+                        ],
+                        attrs: { name: "date" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedCourse = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.courses, function(course) {
+                        return _c("option", { domProps: { value: course } }, [
+                          _vm._v(_vm._s(course))
+                        ])
+                      })
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isCoursesMode
+                ? _c("span", [_vm._v(_vm._s(_vm.course))])
+                : _vm._e(),
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
@@ -49761,7 +49786,7 @@ var render = function() {
               _c("br"),
               _vm._v(" "),
               _c("strong", [_vm._v("Dersi Veren: ")]),
-              _vm._v(_vm._s(_vm.teacher) + "\n                ")
+              _vm._v(_vm._s(_vm.teacherName) + "\n                ")
             ]),
             _vm._v(" "),
             _c("footer", { staticClass: "modal-card-foot" }, [

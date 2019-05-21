@@ -7,11 +7,10 @@
                 <button class="delete" aria-label="close" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-                <!-- Content ... -->
+                <slot></slot>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button" @click="$emit('close')">Cancel</button>
+                <button class="button is-success" @click="$emit('close')">Tamam</button>
             </footer>
         </div>
     </div>

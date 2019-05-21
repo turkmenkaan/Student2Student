@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\CourseRequest;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,12 @@ class CourseController extends Controller
     public function index()
     {
         $lessons = Course::with('teacher')->get();
-        return view('courses', compact('lessons'));
+
+        $currentDate = Carbon::now();
+        $period = CarbonPeriod::create($currentDate, 7);
+        $dates = $period->toArray();
+
+        return view('courses', compact('lessons', 'dates'));
     }
 
     public function create()

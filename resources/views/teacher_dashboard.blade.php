@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <timetable teacher="{{ auth()->user()->id }}" mode="dashboard" :selected-date="selectedDate"></timetable>
+                        <timetable teacher-id="{{ auth()->user()->id }}" mode="dashboard" :selected-date="selectedDate"></timetable>
                         <p class="help" style="text-align: center">
                             Tabloda yeşil saatler uygun olduğunuz saatleri,
                             kırmızılar ise ders almak istemediğiniz saatleri göstermektedir.

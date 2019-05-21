@@ -19,7 +19,6 @@
                         <th>Dersi Veren</th>
                         <th>Ücret</th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,8 +27,8 @@
                             <td>{{ $lesson->name }}</td>
                             <td><a href="{{ route('profile', ['id'=>$lesson->teacher->id]) }}">{{ $lesson->teacher->name }}</a></td>
                             <td>{{ $lesson->cost }}</td>
-                            <td><a href="{{ route('reserveCourse', ['course' => $lesson, 'user' => Auth::user()]) }}" title="Dersi Al"><i class="far fa-calendar-check"></i></a></td>
-                            <td><a href=""><i class="far fa-paper-plane"></i></a></td>
+                            <td><a @click="showCoursePanel({{ $lesson->teacher->id }}, '{{ $lesson->teacher->name }}', '{{ $lesson->name }}')" title="Dersi Al"><i class="far fa-calendar-check"></i></a></td>
+                            <!--<td><a href=""><i class="far fa-paper-plane"></i></a></td>-->
                         </tr>
                     @endforeach
                 </tbody>
@@ -45,7 +44,23 @@
                     <request-lesson target="{{ route('requestCourse') }}" v-if="showRequestLessonPanel" @close="showRequestLessonPanel = false"></request-lesson>
                 </div>
             @endif
-            <reserve-timeslot v-if="showReservationPanel" @close="showReservationPanel = false"></reserve-timeslot>
+            <reserve-timeslot v-if="showReservationPanel" @close="showReservationPanel = false">
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label for="date" class="label">Tarih</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="select">
+                            <select name="date" id="picker" v-model="selectedDate">
+                                @foreach ($dates as $date)
+                                    <option value="{{ $date->format('Y-m-d') }}">{{ $date->format('d/m/Y') }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <timetable :teacher-id="selectedTeacher.id" :teacher-name="selectedTeacher.name" mode="courses" :selected-date="selectedDate" student="{{ auth()->user()->id }}" :course="selectedCourse"></timetable>
+            </reserve-timeslot>
         </div>
     </div>
 @endsection

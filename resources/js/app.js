@@ -41,6 +41,11 @@ const app = new Vue({
         showRequestLessonPanel: false,
         showReservationPanel: false,
         selectedDate: '',
+        selectedTeacher: {
+            id: '',
+            name: ''
+        },
+        selectedCourse: '',
     },
     methods: {
         changeCommentsPanelStatus() {
@@ -51,6 +56,12 @@ const app = new Vue({
         },
         choseDay(day) {
             this.chosenDay = day;
+        },
+        showCoursePanel(teacherId, teacherName, course) {
+            this.showReservationPanel = true;
+            this.selectedTeacher.id = teacherId;
+            this.selectedTeacher.name = teacherName;
+            this.selectedCourse = course;
         }
     },
     computed: {
