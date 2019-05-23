@@ -134,6 +134,7 @@
                     this.showReservePanel = true;
                     this.courseTime = time;
                     this.isCoursesMode = true;
+                    this.selectedCourse = this.course;
                 }
             },
             modeChooser: function (time) {

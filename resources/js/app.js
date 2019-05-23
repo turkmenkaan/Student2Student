@@ -26,6 +26,7 @@ Vue.component('star-rating', StarRating);
 Vue.component('request-lesson', require('./components/RequestLesson'));
 Vue.component('reserve-timeslot', require('./components/ReserveTimeslot'));
 Vue.component('timetable', require('./components/Timetable'));
+Vue.component('approval-panel', require('./components/ApprovalPanel'))
 
 const app = new Vue({
     el: '#app',
@@ -40,12 +41,19 @@ const app = new Vue({
         showStudentForm: false,
         showRequestLessonPanel: false,
         showReservationPanel: false,
+        showApprovalPanel: false,
         selectedDate: '',
         selectedTeacher: {
             id: '',
             name: ''
         },
         selectedCourse: '',
+        reservedDetails: {
+            'course': '',
+            'student': '',
+            'date': '',
+            'hour': ''
+        }
     },
     methods: {
         changeCommentsPanelStatus() {
@@ -62,6 +70,16 @@ const app = new Vue({
             this.selectedTeacher.id = teacherId;
             this.selectedTeacher.name = teacherName;
             this.selectedCourse = course;
+        },
+        approve(course, student, date, hour) {
+            this.reservedDetails.course = course;
+            this.reservedDetails.student = student;
+            this.reservedDetails.date = date;
+            this.reservedDetails.hour = hour;
+            this.showApprovalPanel = true;
+        },
+        setApprovalPanelSettings(reservation) {
+            console.log(reservation);
         }
     },
     computed: {

@@ -5,3 +5,11 @@
 .card {
     margin: 5px;
 }
+
+.not-approved {
+    background-color: #B0BEC5 !important; ;
+}
+
+.approved {
+    background-color: #1DE9B6 !important;
+}

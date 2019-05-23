@@ -24,6 +24,14 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
+                        <approval-panel v-if="showApprovalPanel"
+                                        @close="showApprovalPanel = false"
+                                        :student="reservedDetails.student"
+                                        :course="reservedDetails.course"
+                                        :date="reservedDetails.date"
+                                        :hour="reservedDetails.hour"
+                                        teacher="{{ auth()->user()->id }}">
+                        </approval-panel>
                         <table class="table is-striped is-hoverable is-fullwidth">
                             <tr>
                                 <th>Ders Adı</th>
@@ -32,7 +40,12 @@
                                 <th>Saati</th>
                             </tr>
                             @foreach($futureReservations as $reservation)
-                                <tr>
+                                @if ($reservation->isApproved)
+                                    <tr class="approved">
+                                @else
+                                    <tr class="not-approved"
+                                        @click="approve('{{ $reservation->course->name }}', '{{ $reservation->student->name }}', '{{ date('d/m/Y', strtotime($reservation->timeslot->date)) }}', '{{ $reservation->timeslot->hour }}')">
+                                @endif
                                     <td>{{ $reservation->course->name }}</td>
                                     <td>{{ $reservation->student->name }}</td>
                                     <td>{{ date('d/m/Y', strtotime($reservation->timeslot->date)) }}</td>
@@ -40,6 +53,8 @@
                                 </tr>
                             @endforeach
                         </table>
+                        <p class="help" style="text-align: center">Gri renkli dersler henüz onaylamadığınız derslerdir.
+                        Dersi onaylamak için üzerine basmanız yeterlidir.</p>
                     </div>
                 </div>
             </div>

@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/courseList', 'CourseController@list');
     Route::post('/reserve', 'ReservationController@store');
+
+    Route::post('/approveReservation', 'ReservationController@update');
     /* END OF API ENDPOINTS */
 
     Route::group(['middleware' => 'isAdmin'], function () {

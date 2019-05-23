@@ -20,6 +20,7 @@ class CreateReservationsTable extends Migration
             $table->unsignedInteger('teacher_id');
             $table->unsignedInteger('timeslot_id');
             $table->unsignedInteger('course_id');
+            $table->boolean('isApproved')->default(0);
             $table->boolean('isDone')->default(0);
             $table->boolean('isCancelled')->default(0);
             $table->timestamps();
