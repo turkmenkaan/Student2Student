@@ -26,7 +26,8 @@
                     <div class="content">
                         <approval-panel v-if="showApprovalPanel"
                                         @close="showApprovalPanel = false"
-                                        :student="reservedDetails.student"
+                                        :student-id="reservedDetails.studentId"
+                                        :student-name="reservedDetails.studentName"
                                         :course="reservedDetails.course"
                                         :date="reservedDetails.date"
                                         :hour="reservedDetails.hour"
@@ -44,7 +45,7 @@
                                     <tr class="approved">
                                 @else
                                     <tr class="not-approved"
-                                        @click="approve('{{ $reservation->course->name }}', '{{ $reservation->student->name }}', '{{ date('d/m/Y', strtotime($reservation->timeslot->date)) }}', '{{ $reservation->timeslot->hour }}')">
+                                        @click="approve('{{ $reservation->course->name }}', {{ $reservation->student->id }}, '{{ $reservation->student->name }}', '{{ $reservation->timeslot->date }}', '{{ $reservation->timeslot->hour }}')">
                                 @endif
                                     <td>{{ $reservation->course->name }}</td>
                                     <td>{{ $reservation->student->name }}</td>

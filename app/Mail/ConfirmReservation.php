@@ -12,7 +12,7 @@ class ConfirmReservation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $reservation = '';
+    public $reservation;
     /**
      * Create a new message instance.
      * @param $reservation

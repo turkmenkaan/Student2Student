@@ -16,7 +16,7 @@
                             </tr>
                             <tr>
                                 <td><b>Öğrenci</b></td>
-                                <td>{{ student }}</td>
+                                <td>{{ studentName }}</td>
                             </tr>
                             <tr>
                                 <td><b>Ders Tarihi</b></td>
@@ -43,22 +43,34 @@
 <script>
     export default {
         name: "approval-panel",
-        props: ['student', 'course', 'date', 'hour', 'teacher'],
+        props: ['studentId', 'studentName', 'course', 'date', 'hour', 'teacher'],
         methods: {
             approve: function () {
-                axios.post('approveReservation', {
-                    'teacher-id': this.teacher,
+                axios.post('/approveReservation', {
+                    'teacher_id': this.teacher,
                     'date': this.date,
                     'hour': this.hour,
-                    'student': this.student
+                    'studentId': this.studentId,
+                    'studentName': this.studentName,
+                    'course': this.course,
                 }).then(function (response) {
-                    console.log(response.data);
+                    window.location.href = '/dashboard';
                 }).catch(function (error) {
                     console.log(error.response);
                 })
             },
             deny: function () {
-
+                axios.post('/denyReservation', {
+                    'teacher_id': this.teacher,
+                    'date': this.date,
+                    'hour': this.hour,
+                    'studentId': this.studentId,
+                    'studentName': this.studentName
+                }).then(function (response) {
+                    window.location.href = '/dashboard';
+                }).catch(function (error) {
+                    console.log(error.response);
+                })
             }
         }
     }

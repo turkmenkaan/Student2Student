@@ -39,24 +39,11 @@
                                 <td class="content-cell" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                                     <h1 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">Rezervasyon Talebi</h1>
                                     <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
-                                        Merhaba {{ $teacherName }},<br>
-                                        Yeni bir ders talebiniz var! {{ $studentName }} isimli kullanıcı sizden {{ $course }} dersi almak istiyor.
-                                        Rezervasyon isteğine sitemizdeki <i>Programım</i> kısmından yanıt verebilirsiniz.
+                                        Merhaba {{ $studentName }},<br>
+                                        {{ $teacherName }}'e gönderdiğiniz {{ $course }} dersi talebi kabul edilmiştir. Dersin detaylarına
+                                        <i>Programım</i> sayfanızdan ulaşabilirsiniz. {{ config('app.name') }}'ı kullandığınız için teşekkür ederiz.
                                     </p>
 
-                                    <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;"><tr>
-                                            <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                                        <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                            <table border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                                        <a href="{{ route('dashboard') }}" class="button button-green" target="_blank" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #ffffff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #2ab27b; border-top: 10px solid #2ab27b; border-right: 18px solid #2ab27b; border-bottom: 10px solid #2ab27b; border-left: 18px solid #2ab27b;">İsteğe Yanıt Ver</a>
-                                                                    </td>
-                                                                </tr></table>
-                                                        </td>
-                                                    </tr></table>
-                                            </td>
-                                        </tr></table>
                                     <!--
                                     <table class="panel" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 0 0 21px;"><tr>
                                             <td class="panel-content" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #edeff2; padding: 16px;">
@@ -69,7 +56,7 @@
                                         </tr></table>
                                         -->
                                     <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Saygılar,<br>
-                                        Student2Student</p>
+                                        {{ config('app.name') }}</p>
                                 </td>
                             </tr>
                         </table>
@@ -79,7 +66,7 @@
                     <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
                         <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 0 auto; padding: 0; text-align: center; width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 570px;"><tr>
                                 <td class="content-cell" align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
-                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; line-height: 1.5em; margin-top: 0; color: #ffffff; font-size: 12px; text-align: center;">© 2019 Student2Student. Tüm hakları saklıdır.</p>
+                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; line-height: 1.5em; margin-top: 0; color: #ffffff; font-size: 12px; text-align: center;">© 2019 {{ config('app.name') }}. Tüm hakları saklıdır.</p>
                                 </td>
                             </tr></table>
                     </td>

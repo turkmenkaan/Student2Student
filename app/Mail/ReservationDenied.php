@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ReservationConfirmed extends Mailable
+class ReservationDenied extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class ReservationConfirmed extends Mailable
         $studentName = $this->reservation->student->name;
         $course = $this->reservation->course->name;
 
-        return $this->view('emails.reservation_confirmed',
+        return $this->view('emails.reservation_denied',
             compact('teacherName', 'studentName', 'course'));
     }
 }

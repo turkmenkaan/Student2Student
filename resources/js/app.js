@@ -50,7 +50,8 @@ const app = new Vue({
         selectedCourse: '',
         reservedDetails: {
             'course': '',
-            'student': '',
+            'studentId': 0,
+            'studentName': '',
             'date': '',
             'hour': ''
         }
@@ -71,9 +72,10 @@ const app = new Vue({
             this.selectedTeacher.name = teacherName;
             this.selectedCourse = course;
         },
-        approve(course, student, date, hour) {
+        approve(course, studentId, studentName, date, hour) {
             this.reservedDetails.course = course;
-            this.reservedDetails.student = student;
+            this.reservedDetails.studentId = studentId;
+            this.reservedDetails.studentName = studentName;
             this.reservedDetails.date = date;
             this.reservedDetails.hour = hour;
             this.showApprovalPanel = true;

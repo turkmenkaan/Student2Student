@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/reserve', 'ReservationController@store');
 
     Route::post('/approveReservation', 'ReservationController@update');
+    Route::post('/denyReservation', 'ReservationController@deny');
     /* END OF API ENDPOINTS */
 
     Route::group(['middleware' => 'isAdmin'], function () {
