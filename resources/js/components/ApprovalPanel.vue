@@ -64,10 +64,11 @@
                     'teacher_id': this.teacher,
                     'date': this.date,
                     'hour': this.hour,
-                    'studentId': this.studentId,
+                    'student_id': this.studentId,
                     'studentName': this.studentName
                 }).then(function (response) {
-                    window.location.href = '/dashboard';
+                    //window.location.href = '/dashboard';
+                    console.log(response.data);
                 }).catch(function (error) {
                     console.log(error.response);
                 })

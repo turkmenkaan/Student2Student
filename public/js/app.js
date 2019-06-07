@@ -49917,7 +49917,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49994,10 +49994,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'teacher_id': this.teacher,
                 'date': this.date,
                 'hour': this.hour,
-                'studentId': this.studentId,
+                'student_id': this.studentId,
                 'studentName': this.studentName
             }).then(function (response) {
-                window.location.href = '/dashboard';
+                //window.location.href = '/dashboard';
+                console.log(response.data);
             }).catch(function (error) {
                 console.log(error.response);
             });

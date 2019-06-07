@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Jobs\SendReservationStatusMail;
 use App\User;
 use App\Reservation;
 use App\Timeslot;
@@ -37,6 +38,12 @@ class ReservationController extends Controller
         $studentEmail = User::where('id', $request->student)->first()->email;
         $teacherEmail = User::where('id', $request->teacher)->first()->email;
 
+        /*
+         * POSSIBLE CONFUSION ALERT:
+         * ConfirmReservation is the name of the email sent when a student requests
+         * a lesson, not the one sent when a lesson is confirmed by the teacher.
+         * The email sent when a lesson is actually confirmed is ReservationConfirmed.
+         */
         Mail::to($teacherEmail)->send(new ConfirmReservation($reservation));
         Mail::to($studentEmail)->send(new ReservationNotification($reservation));
     }
@@ -59,12 +66,15 @@ class ReservationController extends Controller
         $studentEmail = User::where('id', $request->studentId)->first()->email;
         $teacherEmail = User::where('id', $request->teacher_id)->first()->email;
 
-        Mail::to($studentEmail)->send(new ReservationConfirmed($reservation));
+        SendReservationStatusMail::dispatch($studentEmail, 'confirmed', $reservation)->delay(now()->addSeconds(5));
     }
 
+    /**
+     * @param Request $request
+     */
     public function deny (Request $request)
     {
-        $studentEmail = User::where('id', $request->studentId)->first()->email;
+        $studentEmail = User::where('id', $request->student_id)->first()->email;
 
         $timeslot = Timeslot::where('teacher_id', $request->teacher_id)
             ->where('date', $request->date)
@@ -73,9 +83,9 @@ class ReservationController extends Controller
         $timeslot->save();
 
         $reservation = Reservation::where('timeslot_id', $timeslot->id)
-            ->where('student_id', $request->studentId)->first();
+            ->where('student_id', $request->student_id)->first();
 
-        Mail::to($studentEmail)->send(new ReservationDenied($reservation));
+        SendReservationStatusMail::dispatch($studentEmail, 'denied', $reservation)->delay(now()->addSeconds(5));
 
         $reservation->delete();
     }

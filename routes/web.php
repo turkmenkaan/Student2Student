@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function() {
-    return view('landing');
+    //return view('landing');
+    return redirect()->route('login');
 })->name('landing');
 
 Route::get('/about', function () {
