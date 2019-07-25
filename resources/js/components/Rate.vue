@@ -19,27 +19,13 @@
 <script>
     export default {
         name: "rate",
-        props: ['userId'],
-        oldRating: 0,
+        props: ['userId', 'rating', 'raters'],
         data() {
             return {
                 givenRating: 0,
-                numRaters: 0,
             }
         },
-        mounted() {
-            var endPoint = '/rating/'.concat(this.userId);
 
-            // Get the latest rating of the teacher
-            axios.get(endPoint).then(function (response) {
-                console.log(response.data);
-                console.log(response.data[1]);
-
-                this.numRaters = response.data[1];
-            }).catch(error => {
-                console.log(error.message);
-            });
-        },
         // oldRating: 0,  // The Latest Rating
         // numRaters: 0,  // Number of people voted before
         methods: {
@@ -48,17 +34,17 @@
                 console.log(this.givenRating);
             },
             sendRating() {
-                console.log(this.oldRating); // WHAT THE HECK IS THE PROBLEM???
-
                 // Post the new rating of the teacher
                 axios.post('/rate', {
                     id: this.userId,
-                    rating: (this.oldRating * this.numRaters + this.givenRating) / (this.numRaters + 1)
+                    // Have to parse the database value to integer here! Weirdo JS.
+                    rating: (this.rating * this.raters + this.givenRating) / (parseInt(this.raters) + 1),
                 }).then(function (response) {
                     console.log('Rating Set!');
                 }).catch(error => {
                     console.log(error.message);
                 });
+                this.$emit('close');
             }
         }
     }

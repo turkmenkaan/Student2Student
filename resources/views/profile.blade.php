@@ -41,7 +41,7 @@
                                 <a href="#" class="card-footer-item" @click="showCommentPanel = true">Yorum Yap</a>
                             @endif
 
-                            <rate v-if="showRatePanel" @close="showRatePanel = false" user-id="{{ $user->id }}"></rate>
+                            <rate v-if="showRatePanel" @close="showRatePanel = false" user-id="{{ $user->id }}" rating="{{ $user->rating }}" raters="{{ $user->ratersNumber }}"></rate>
                             <comment v-if="showCommentPanel" @close="showCommentPanel = false">
                                 <form action="{{ route('comment', ['id' => $user->id]) }}" method="POST" id="commentForm">
                                     @csrf

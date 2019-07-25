@@ -29,63 +29,90 @@
                 </header>
 
                 <div class="card-content">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    <form method="POST" action="{{ route('registerStudent') }}">
+                    @csrf
 
-                        <div class="field">
-                            <label for="name" class="label">Ad - Soyad</label>
-
-                            <div class="control">
-                                <input id="name" type="text" class="input{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
+                    <!-- Name/Surname Field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label for="name" class="label">Ad Soyad</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input type="text" id="teacherName" class="input{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                                @endif
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label for="email" class="label">Email</label>
+                        <!-- Email Field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Email</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input id="email" type="email" class="input{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- School Field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Okul</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input type="text" class="input" placeholder="Okul Adı" name="school" required>
+                                    </p>
+                                </div>
 
-                            <div class="control">
-                                <input id="email" type="email" class="input{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label for="password" class="label text-md-right">Parola</label>
-
-                            <div class="control">
-                                <input id="password" type="password" class="input{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                        <!-- Password Field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label for="password" class="label">Şifre</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input type="password" class="input{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Şifrenizi Giriniz" required>
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="field">
+                                    <p class="control">
+                                        <input type="password" class="input" name="password_confirmation" placeholder="Şifrenizi Tekrar Giriniz" required>
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label for="password-confirm" class="label text-md-right">Parolayı Tekrarlayınız</label>
-
-                            <div class="control">
-                                <input id="password-confirm" type="password" class="input" name="password_confirmation" required>
-                            </div>
-                        </div>
 
                         <div class="field">
                             <div class="control">
                                 <button type="submit" class="button is-link">
-                                    {{ __('Register') }}
+                                    Kayıt Ol
                                 </button>
                             </div>
                         </div>

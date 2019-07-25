@@ -22,30 +22,76 @@
 @endsection
 
 @section('content')
-    <section class="home-banner-area relative">
+    <section class="home-banner-area" id="search-area">
         <div class="columns">
-            <div id="main" class="column is-8 fullscreen d-flex align-items-center justify-content-center">
+            <div id="main" class="column is-8 is-offset-2 fullscreen d-flex align-items-center justify-content-center">
                 <div class="banner-content">
-                    <h3 class="wow fadeIn" data-wow-duration="4s">{{ config('app.name') }}'da Almak İstediğiniz Dersi Arayın</h3>
+                    <h3 class="wow fadeIn" id="course-search" data-wow-duration="4s">{{ config('app.name') }}'da Almak İstediğiniz Dersi Arayın</h3>
                     <div class="input-wrap">
-                        <form action="" class="form-box d-flex justify-content-between">
+                        <form action="{{ route('search') }}" method="POST" class="form-box d-flex justify-content-between">
+                            @csrf
                             <input type="text" placeholder="Ders Arayın" class="form-control" name="search">
                             <button type="submit" class="btn search-btn">Ara</button>
                         </form>
+                        @if (session('status'))
+                            <div class="not-found">
+                                <p>
+                                    {{ session('status') }}
+                                </p>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
             </div>
-            <div class="column is-4">
+        </div>
+    </section>
+    <section>
+        <div class="columns">
+            <div class="column is-6 is-offset-3" id="instructions-div">
+                <h3 id="instructions-title">Nasıl Ders Alırım?</h3>
+                <p>
+                    Arama alanına istediğiniz ders adını yazarak ya da dersler bölümünü
+                    görüntüleyerek mevcut derslerimize göz atabilirsiniz. Eğer istediğiniz bir
+                    ders listelerimizde bulunmuyorsa, dersler bölümündeki ders talep et
+                    bölümünden yeni ders talebinde bulunabilirsiniz.
+                </p>
+                <p>
+                    İstediğiniz dersi bulmanız durumunda istediğiniz dersin yanındaki takvim
+                    butonuna basarak tarih ve saat seçebilir, rezervasyon talebinde bulunabilirsiniz.
+                    Rezervasyon talebiniz dersi veren kişiye gönderilecek, kendisi tarafından
+                    onaylanması durumunda size onay maili gelecektir.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="home-banner-area">
+        <div class="columns">
+            <div class="column is-10 is-offset-1 populars">
+                <h4 class="title">Popüler Hocalar</h4>
+                <div id="teacher-images">
+                    @foreach ($popularTeachers as $teacher)
+                        <figure>
+                            <img src="{{ asset($teacher->photoUrl) }}" class="image is-256x256" alt="Hoca 1" height="190" width="178">
+                            <figcaption>{{ $teacher->name }}</figcaption>
+                        </figure>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="columns">
+            <div class="column is-10 is-offset-1 populars">
+                <h4 class="title">Popüler Dersler</h4>
                 <table class="table">
-                    <tr><td>Favori Hoca 1</td></tr>
-                    <tr><td>Favori Hoca 2</td></tr>
-                    <tr><td>Favori Hoca 3</td></tr>
-                </table>
-                <table class="table">
-                    <tr><td>Favori Ders 1</td></tr>
-                    <tr><td>Favori Ders 2</td></tr>
-                    <tr><td>Favori Ders 3</td></tr>
+                    @foreach ($popularCourses as $course)
+                        <tr>
+                            <td>{{ $course->name }}</td>
+                            <td><a href="#">{{ $course->teacher->name }}</a></td>
+                            <td>{{ $course->cost }}</td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

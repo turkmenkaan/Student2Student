@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountCreated;
 use \App\User;
 use App\Reservation;
+use App\Jobs\SendAccountCreatedMail;
 use Carbon\CarbonPeriod;
 use Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use function PHPSTORM_META\type;
 
 class UserController extends Controller
@@ -34,14 +37,32 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * This section registers non-teacher users
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'school' => 'required',
+        ]);
+
+        $student = new User;
+        $student->name = $request->input('name');
+        $student->email = $request->input('email');
+        $student->password = bcrypt($request->input('password'));
+        $student->school = $request->input('school');
+        $student->isTeacher = 0;
+        $student->description = 'Burayı henüz doldurmamış bir öğrenciyim...';
+        $student->save();
+
+        SendAccountCreatedMail::dispatch($student)->delay(now()->addSeconds(5));
+
+        return redirect('home');
     }
 
     /**
@@ -237,7 +258,7 @@ class UserController extends Controller
     /**
      * @param Request $request
      */
-    private function updateRating(Request $request)
+    public function updateRating(Request $request)
     {
         $id = $request->input('id');
         $rating = $request->input('rating');

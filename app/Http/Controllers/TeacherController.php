@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendAccountCreatedMail;
 use App\User;
 use App\Course;
 use App\Timeslot;
@@ -97,9 +98,10 @@ class TeacherController extends Controller
 
         // DON'T FORGET TO ADD A DESC FIELD IN THE REGISTRATION FORM
         $teacher->description = 'Gotta change this desc...';
-
         $teacher->save();
-        Mail::to($teacher->email)->send(new AccountCreated($teacher));
+
+        SendAccountCreatedMail::dispatch($teacher)->delay(now()->addSeconds(5));
+
         return redirect('home');
     }
 

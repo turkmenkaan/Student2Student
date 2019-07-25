@@ -54,11 +54,14 @@ class ReservationController extends Controller
             ->where('date', $request->date)
             ->where('hour', $request->hour)->first();
 
-        $course = Course::where('name', $request->course)->first()->id;
+        $course = Course::where('name', $request->course)->first();
 
         $reservation = Reservation::where('timeslot_id', $timeslot->id)
             ->where('student_id', $request->studentId)
-            ->where('course_id', $course)->first();
+            ->where('course_id', $course->id)->first();
+
+        $course->amount_taken += 1;
+        $course->save();
 
         $reservation->isApproved = 1;
         $reservation->save();

@@ -53,4 +53,21 @@ class CourseController extends Controller
     {
         return Course::all();
     }
+
+    public function search (Request $request)
+    {
+        $query = $request->input('search');
+        $isFound = Course::where('name', 'LIKE', '%' . $query . '%')->exists();
+        $lessons = Course::where('name', 'LIKE', '%' . $query . '%')->get();
+
+        $currentDate = Carbon::now();
+        $period = CarbonPeriod::create($currentDate, 7);
+        $dates = $period->toArray();
+
+        if ($isFound) {
+            return view('courses', compact('lessons', 'dates'));
+        } else {
+            return redirect()->route('home')->with('status', 'Aradığınız ders bulunamadı!');
+        }
+    }
 }

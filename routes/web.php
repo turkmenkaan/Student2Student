@@ -68,11 +68,13 @@ Route::get('/contact', 'AdminController@viewContact')->name('contact');
 Route::post('/contact', 'AdminController@storeContact')->name('sendContact');
 
 Route::get('/rating/{id}', 'UserController@showRating');
-Route::post('/rate/', 'UserController@updateRating');
+Route::post('/rate', 'UserController@updateRating');
 
 Route::post('/comment/{id}', 'CommentController@store')->name('comment');
 Route::post('/registerTeacher', 'TeacherController@store')->name('registerTeacher');
+Route::post('/registerStudent', 'UserController@store')->name('registerStudent');
 Route::post('/profile/{id}/update', 'UserController@update')->name('updateProfile');
 Route::post('/requestCourse', 'CourseController@storeRequest')->name('requestCourse');
+Route::post('/search', 'CourseController@search')->name('search');
 
 

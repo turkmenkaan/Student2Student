@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->text('name');
             $table->text('description');
             $table->integer('cost');
+            $table->integer('amount_taken')->default(0);
             $table->timestamps();
 
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');

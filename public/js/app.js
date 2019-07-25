@@ -47768,7 +47768,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47833,27 +47833,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "rate",
-    props: ['userId'],
-    oldRating: 0,
+    props: ['userId', 'rating', 'raters'],
     data: function data() {
         return {
-            givenRating: 0,
-            numRaters: 0
+            givenRating: 0
         };
     },
-    mounted: function mounted() {
-        var endPoint = '/rating/'.concat(this.userId);
 
-        // Get the latest rating of the teacher
-        axios.get(endPoint).then(function (response) {
-            console.log(response.data);
-            console.log(response.data[1]);
-
-            this.numRaters = response.data[1];
-        }).catch(function (error) {
-            console.log(error.message);
-        });
-    },
 
     // oldRating: 0,  // The Latest Rating
     // numRaters: 0,  // Number of people voted before
@@ -47863,17 +47849,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.givenRating);
         },
         sendRating: function sendRating() {
-            console.log(this.oldRating); // WHAT THE HECK IS THE PROBLEM???
-
             // Post the new rating of the teacher
             axios.post('/rate', {
                 id: this.userId,
-                rating: (this.oldRating * this.numRaters + this.givenRating) / (this.numRaters + 1)
+                // Have to parse the database value to integer here! Weirdo JS.
+                rating: (this.rating * this.raters + this.givenRating) / (parseInt(this.raters) + 1)
             }).then(function (response) {
                 console.log('Rating Set!');
             }).catch(function (error) {
                 console.log(error.message);
             });
+            this.$emit('close');
         }
     }
 });

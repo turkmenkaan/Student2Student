@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $popularCourses = Course::orderBy('amount_taken', 'desc')->take(5)->get();
+        $popularTeachers = User::where('isTeacher', 1)->orderBy('rating', 'desc')->take(5)->get();
+        return view('home', compact('popularCourses', 'popularTeachers'));
     }
 
     /**

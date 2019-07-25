@@ -6,3 +6,47 @@
     background-image: none;
     background-color: #E0F2F1;
 }
+
+#search-area {
+    padding: 5%;
+}
+
+#course-search {
+    margin-top: 20px;
+}
+
+#instructions-div {
+    text-align: center;
+    padding: 40px;
+}
+
+.populars img {
+    margin: 20px;
+    margin-left: 8%;
+}
+
+.populars .title {
+    text-align: center;
+    margin-top: 30px
+}
+
+.populars table {
+    margin: 20px;
+}
+
+#teacher-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.not-found p {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-size: 17px;
+}
+
+.content figure {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
