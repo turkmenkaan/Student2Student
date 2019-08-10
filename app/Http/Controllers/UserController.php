@@ -56,6 +56,8 @@ class UserController extends Controller
         $student->email = $request->input('email');
         $student->password = bcrypt($request->input('password'));
         $student->school = $request->input('school');
+        $student->class = $request->input('class');
+        $student->gradYear = $request->input('grad-year');
         $student->isTeacher = 0;
         $student->description = 'Burayı henüz doldurmamış bir öğrenciyim...';
         $student->save();

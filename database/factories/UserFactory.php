@@ -29,6 +29,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'school' => $schools[random_int(0, 4)],
         'class' => random_int(9, 12),
+        'gradYear' => random_int(2019, 2025),
         'cost' => random_int(50, 150),
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
         'email_verified_at' => now(),

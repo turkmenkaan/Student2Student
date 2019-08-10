@@ -93,6 +93,7 @@ class TeacherController extends Controller
         $teacher->password = bcrypt($request->input('password'));
         $teacher->school = $request->input('school');
         $teacher->class = $request->input('class');
+        $teacher->gradYear = $request->input('grad-year');
         $teacher->cost = $request->input('cost');
         $teacher->isTeacher = 1;
 

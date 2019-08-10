@@ -16,10 +16,10 @@
         <div class="navbar-item">
             <div class="buttons">
                 <a class="button is-primary" href="{{ route('register') }}">
-                    <strong>Sign up</strong>
+                    <strong>Kayıt Ol</strong>
                 </a>
                 <a class="button is-light" href="{{ route('login') }}">
-                    Log in
+                    Giriş Yap
                 </a>
             </div>
         </div>

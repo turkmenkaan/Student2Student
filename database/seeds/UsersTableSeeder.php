@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Kaan Turkmen',
             'email' => 'kaanturkmen2000@gmail.com',
             'class' => 12,
+            'gradYear' => 2023,
             'cost' => 150,
             'description' => 'Co-Founder of Student2Student',
             'school' => 'Uskudar Amerikan Lisesi',

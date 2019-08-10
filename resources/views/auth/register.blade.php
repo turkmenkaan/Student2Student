@@ -84,6 +84,35 @@
                             </div>
                         </div>
 
+                        <!-- Class field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input type="integer" class="input" placeholder="Mezuniyet Yılı" name="grad-year">
+                                    </p>
+                                </div>
+                                <div class="field is-expanded">
+                                    <div class="control select">
+                                        <select name="class">
+                                            <option value="" disabled selected>Sınıfınız...</option>
+                                            <option value="9">Lise 1</option>
+                                            <option value="10">Lise 2</option>
+                                            <option value="11">Lise 3</option>
+                                            <option value="12">Lise 4</option>
+                                            <option value="1">Üniversite 1</option>
+                                            <option value="2">Üniversite 2</option>
+                                            <option value="3">Üniversite 3</option>
+                                            <option value="4">Üniversite 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Password Field -->
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
@@ -199,7 +228,7 @@
                                 </div>
                             </div>
 
-                            <!-- Graduation Year Field -->
+                            <!--Class Field -->
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
 
