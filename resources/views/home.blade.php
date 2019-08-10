@@ -26,7 +26,8 @@
         <div class="columns">
             <div id="main" class="column is-8 is-offset-2 fullscreen d-flex align-items-center justify-content-center">
                 <div class="banner-content">
-                    <h3 class="wow fadeIn" id="course-search" data-wow-duration="4s">{{ config('app.name') }}'da Almak İstediğiniz Dersi Arayın</h3>
+                    <img src="{{ asset('images/full-logo-blue.png') }}" id="banner-image">
+                    <h3 class="wow fadeIn" id="course-search" data-wow-duration="4s">Almak İstediğiniz Dersi Arayın</h3>
                     <div class="input-wrap">
                         <form action="{{ route('search') }}" method="POST" class="form-box d-flex justify-content-between">
                             @csrf

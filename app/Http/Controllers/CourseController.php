@@ -30,6 +30,15 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $course = new Course;
+
+        if (!$request->filled('courseName')) {
+            return redirect()->back()->with('error', 'Lütfen ders adı giriniz!');
+        } else if (!$request->filled('courseDescription')) {
+            return redirect()->back()->with('error', 'Lütfen ders açıklaması giriniz!');
+        } else if (!$request->filled('cost')) {
+            return redirect()->back()->with('error', 'Lütfen ders ücreti giriniz!');
+        }
+
         $course->teacher_id = $request->user()->id;
         $course->name = $request->courseName;
         $course->description = $request->courseDescription;

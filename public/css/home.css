@@ -7,6 +7,10 @@
     background-color: #E0F2F1;
 }
 
+#banner-image {
+    margin-bottom: 10px;
+}
+
 #search-area {
     padding: 5%;
 }

@@ -1,13 +1,25 @@
 @extends('includes.master')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/course-creation.css') }}">
+@endsection
+
 @section('navbar')
     @include('includes.navbar')
 @endsection
 
 @section('content')
+
     <form class="form-horizontal" method="POST" action="{{ route('storeLesson') }}">
         <div class="columns">
             <div class="column is-6 is-offset-3" style="margin-top: 2%;margin-bottom: 2%">
+                @if (session('error'))
+                    <div class="notification is-danger">
+                        <ul id="course-creation-error">
+                            {{ session('error')  }}
+                        </ul>
+                    </div>
+                @endif
                 @csrf
                 <div class="field">
                     <input class="input" type="text" placeholder="Ders Adı" id="courseName" name="courseName">
