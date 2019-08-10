@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('school');
             $table->integer('class')->nullable();
-            $table->integer('gradYear');
             $table->integer('cost')->default(100);
             $table->text('description');
             $table->float('rating')->default(0);
