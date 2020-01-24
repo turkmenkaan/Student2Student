@@ -69,6 +69,23 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Phone Field -->
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Telefon*</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-expanded">
+                                    <p class="control">
+                                        <input type="tel" class="input" name="phone" pattern="[0-9]{11}" required>
+                                        <small style="font-size: 10px">* Telefon numaranız, yalnızca ders talep ettiğiniz eğitimcilerle paylaşılacaktır.</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- School Field -->
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
@@ -274,6 +291,23 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Phone Field -->
+                        <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Telefon*</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field is-expanded">
+                                        <p class="control">
+                                            <input type="tel" class="input" name="phone" pattern="[0-9]{11}" required>
+                                            <small style="font-size: 10px">* Telefon numaranız, yalnızca ders talebini kabul ettiğiniz öğrencilerle paylaşılacaktır.</small>
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- Cost Field -->
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Ücret</label>

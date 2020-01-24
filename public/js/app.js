@@ -14386,7 +14386,7 @@ var app = new Vue({
         showEditPanel: false,
         showCommentPanel: false,
         showComments: true,
-        showTimes: false,
+        showTimes: true,
         chosenDay: 'Pazartesi',
         showTeacherForm: false,
         showStudentForm: false,
@@ -49404,6 +49404,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "timetable",
@@ -49487,6 +49492,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         reserveTime: function reserveTime() {
+            if (this.selectedCourse === "") {
+                this.showErrorMessage = true;
+                this.showReservePanel = false;
+                return;
+            }
             console.log('Reserved timeslot: ' + this.courseTime);
             axios.post('/reserve', {
                 student: this.student,
@@ -49499,6 +49509,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error.response);
             });
+            this.showErrorMessage = false;
             this.showReservePanel = false;
             this.showSuccessMessage = true;
             this.available[this.courseTime] = 0;
@@ -49689,6 +49700,21 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.courseTime) + "\n            "),
             _c("strong", [_vm._v("Ders:")]),
             _vm._v(" " + _vm._s(_vm.selectedCourse) + "\n        ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showErrorMessage
+        ? _c("div", { staticClass: "notification is-danger" }, [
+            _c("button", {
+              staticClass: "delete",
+              on: {
+                click: function($event) {
+                  _vm.showErrorMessage = false
+                }
+              }
+            }),
+            _vm._v("\n            Ders Seçtiğinizden Emin Olun!"),
+            _c("br")
           ])
         : _vm._e(),
       _vm._v(" "),

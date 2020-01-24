@@ -60,6 +60,7 @@ class UserController extends Controller
         $student->gradYear = $request->input('grad-year');
         $student->isTeacher = 0;
         $student->description = 'Burayı henüz doldurmamış bir öğrenciyim...';
+        $student->phone = $request->input('phone');
         $student->save();
 
         SendAccountCreatedMail::dispatch($student)->delay(now()->addSeconds(5));

@@ -94,6 +94,7 @@ class TeacherController extends Controller
         $teacher->school = $request->input('school');
         $teacher->class = $request->input('class');
         $teacher->gradYear = $request->input('grad-year');
+        $teacher->phone = $request->input('phone');
         $teacher->cost = $request->input('cost');
         $teacher->isTeacher = 1;
 

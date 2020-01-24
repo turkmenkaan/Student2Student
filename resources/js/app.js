@@ -35,7 +35,7 @@ const app = new Vue({
         showEditPanel: false,
         showCommentPanel: false,
         showComments: true,
-        showTimes: false,
+        showTimes: true,
         chosenDay: 'Pazartesi',
         showTeacherForm: false,
         showStudentForm: false,

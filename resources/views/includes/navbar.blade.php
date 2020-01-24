@@ -3,7 +3,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand" style="left-margin:5%">
         <a class="navbar-item" href="{{ route('home') }}">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+            <img src="{{ asset('storage/images/full-logo.png') }}" id="logo">
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">

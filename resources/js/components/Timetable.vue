@@ -29,6 +29,11 @@
                 <strong>Ders:</strong> {{ selectedCourse }}
             </div>
 
+            <div class="notification is-danger" v-if="showErrorMessage">
+                <button class="delete" @click="showErrorMessage = false"></button>
+                Ders Seçtiğinizden Emin Olun!<br>
+            </div>
+
             <div class="modal" :class="{ 'is-active':showReservePanel }">
                 <div class="modal-background"></div>
                 <div class="modal-card">
@@ -147,6 +152,11 @@
                 }
             },
             reserveTime: function () {
+                if (this.selectedCourse === "") {
+                    this.showErrorMessage = true;
+                    this.showReservePanel = false;
+                    return;
+                }
                 console.log('Reserved timeslot: ' + this.courseTime);
                 axios.post('/reserve', {
                     student: this.student,
@@ -159,6 +169,7 @@
                 }).catch(function (error) {
                     console.log(error.response);
                 })
+                this.showErrorMessage = false;
                 this.showReservePanel = false;
                 this.showSuccessMessage = true;
                 this.available[this.courseTime] = 0;

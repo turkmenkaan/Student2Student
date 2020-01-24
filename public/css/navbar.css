@@ -27,3 +27,7 @@
 #rightMenu:active {
     color: #00b89c;
 }
+
+#logo {
+    padding: 2px;
+}
